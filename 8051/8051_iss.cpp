@@ -6,19 +6,25 @@
 
 #include "top.h"
 
-#define PRINT_PORT                                                          \
-    std::cout << "@" << std::setw(10) << sc_time_stamp() << ":"             \
-              << " ,P0o = " << std::setw(2) << std::hex << top.core->port0o.read().to_uint() \
-              << " ,P1o = " << std::setw(2) << std::hex << top.core->port1o.read().to_uint() \
-              << " ,P2o = " << std::setw(2) << std::hex << top.core->port2o.read().to_uint() \
-              << " ,P3o = " << std::setw(2) << std::hex << top.core->port3o.read().to_uint() \
-              << std::endl                                                  \
-              << "           :"                                             \
-              << " ,P0i = " << std::setw(2) << std::hex << top.core->port0i.read().to_uint() \
-              << " ,P1i = " << std::setw(2) << std::hex << top.core->port1i.read().to_uint() \
-              << " ,P2i = " << std::setw(2) << std::hex << top.core->port2i.read().to_uint() \
-              << " ,P3i = " << std::setw(2) << std::hex << top.core->port3i.read().to_uint() \
-              << std::endl                                                  \
+#define PRINT_PORT                                              \
+    std::cout << "@" << std::setw(10) << sc_time_stamp() << ":" \
+              << " ,P0o = " << std::setw(2) << std::hex         \
+              << top.core->port0o.read().to_uint()              \
+              << " ,P1o = " << std::setw(2) << std::hex         \
+              << top.core->port1o.read().to_uint()              \
+              << " ,P2o = " << std::setw(2) << std::hex         \
+              << top.core->port2o.read().to_uint()              \
+              << " ,P3o = " << std::setw(2) << std::hex         \
+              << top.core->port3o.read().to_uint() << std::endl \
+              << "           :"                                 \
+              << " ,P0i = " << std::setw(2) << std::hex         \
+              << top.core->port0i.read().to_uint()              \
+              << " ,P1i = " << std::setw(2) << std::hex         \
+              << top.core->port1i.read().to_uint()              \
+              << " ,P2i = " << std::setw(2) << std::hex         \
+              << top.core->port2i.read().to_uint()              \
+              << " ,P3i = " << std::setw(2) << std::hex         \
+              << top.core->port3i.read().to_uint() << std::endl \
               << std::endl;
 
 // DWORD WINAPI ShowWinThreadProc(LPVOID pParam);
@@ -82,9 +88,43 @@ int sc_main(int argc, char *argv[]) {
     top.core->save_vars(&olds);
     dolog = false;
 
-    bool first = false;
+    bool         first   = false;
+    unsigned int lastRec = 0x9f;
+    bool         start   = false;
+    bool         done    = false;
+    bool         end     = false;
     for (; t < 30000; t++) {
+#if 1
+        if (!start && top.core->port0o.read() == CTRL_IN_START) {
+            start = true;
+            std::cout << "===========" << std::endl << std::endl;
+            std::cout << "START_POINT" << std::endl;
+            PRINT_PORT;
+        }
+
+        if (!done && top.core->port1i.read() == CTRL_OUT_DONE) {
+            done = true;
+            std::cout << "DONE_POINT" << std::endl;
+            PRINT_PORT;
+        }
+
+        if (!end && top.core->port0o.read() == 0x9f &&
+            top.core->port1i.read() == 0xfe) {
+            end = true;
+            std::cout << "END_POINT" << std::endl;
+            PRINT_PORT;
+            std::cout << "===========" << std::endl;
+        }
+
+        if (top.core->port0o.read() == 0x9f) first = true;
+        if (first && top.core->port0o.read() == top.core->port2o.read())
+            if (lastRec != top.core->port0o.read()) {
+                lastRec = top.core->port0o.read();
+                PRINT_PORT;
+            }
+#else
         PRINT_PORT;
+#endif
 
         if (dolog) {
             printf("%08d#", t);

@@ -1,0 +1,130 @@
+
+Info: (I804) /IEEE_Std_1666/deprecated: 
+    sc_clock(const char*, double, double, double, bool)
+    is deprecated use a form that includes sc_time or
+    sc_time_unit
+
+Info: (I804) /IEEE_Std_1666/deprecated: sc_sensitive_pos is deprecated use sc_sensitive << with pos() instead
+
+Info: (I804) /IEEE_Std_1666/deprecated: sc_sensitive_neg is deprecated use sc_sensitive << with neg() instead
+
+Info: (I804) /IEEE_Std_1666/deprecated: sc_signal<T>::get_new_value() is deprecated
+===========
+
+START_POINT
+@  43620 ns: ,P0o = c0 ,P1o =  0 ,P2o = 73 ,P3o =  0
+           : ,P0i =  0 ,P1i =  0 ,P2i =  0 ,P3i =  0
+
+DONE_POINT
+@  87590 ns: ,P0o = 72 ,P1o =  0 ,P2o = 75 ,P3o =  0
+           : ,P0i =  0 ,P1i =  2 ,P2i =  0 ,P3i =  0
+
+END_POINT
+@ 101090 ns: ,P0o = 9f ,P1o =  0 ,P2o = 75 ,P3o =  0
+           : ,P0i =  0 ,P1i = fe ,P2i =  0 ,P3i = b9
+
+===========
+@ 101830 ns: ,P0o = 11 ,P1o =  0 ,P2o = 11 ,P3o =  0
+           : ,P0i =  0 ,P1i = fe ,P2i =  0 ,P3i = b9
+
+@ 102160 ns: ,P0o = 75 ,P1o =  0 ,P2o = 75 ,P3o =  0
+           : ,P0i =  0 ,P1i = fe ,P2i =  0 ,P3i = b9
+
+@ 102490 ns: ,P0o = c9 ,P1o =  0 ,P2o = c9 ,P3o =  0
+           : ,P0i =  0 ,P1i = fe ,P2i =  0 ,P3i = b9
+
+@ 102820 ns: ,P0o = 8e ,P1o =  0 ,P2o = 8e ,P3o =  0
+           : ,P0i =  0 ,P1i = 76 ,P2i =  0 ,P3i = f9
+
+@ 103150 ns: ,P0o = 84 ,P1o =  0 ,P2o = 84 ,P3o =  0
+           : ,P0i =  0 ,P1i = 26 ,P2i =  0 ,P3i = 84
+
+@ 103480 ns: ,P0o = 1c ,P1o =  0 ,P2o = 1c ,P3o =  0
+           : ,P0i =  0 ,P1i = 26 ,P2i =  0 ,P3i = 84
+
+@ 103810 ns: ,P0o = a6 ,P1o =  0 ,P2o = a6 ,P3o =  0
+           : ,P0i =  0 ,P1i = 26 ,P2i =  0 ,P3i = 84
+
+@ 104140 ns: ,P0o = 6f ,P1o =  0 ,P2o = 6f ,P3o =  0
+           : ,P0i =  0 ,P1i = 26 ,P2i =  0 ,P3i = 84
+
+@ 104470 ns: ,P0o = 37 ,P1o =  0 ,P2o = 37 ,P3o =  0
+           : ,P0i =  0 ,P1i = 26 ,P2i =  0 ,P3i = 84
+
+@ 104800 ns: ,P0o = c2 ,P1o =  0 ,P2o = c2 ,P3o =  0
+           : ,P0i =  0 ,P1i = 26 ,P2i =  0 ,P3i = 84
+
+@ 105130 ns: ,P0o = a5 ,P1o =  0 ,P2o = a5 ,P3o =  0
+           : ,P0i =  0 ,P1i = 26 ,P2i =  0 ,P3i = 84
+
+@ 105460 ns: ,P0o = e9 ,P1o =  0 ,P2o = e9 ,P3o =  0
+           : ,P0i =  0 ,P1i = 26 ,P2i =  0 ,P3i = 84
+
+@ 105790 ns: ,P0o = 80 ,P1o =  0 ,P2o = 80 ,P3o =  0
+           : ,P0i =  0 ,P1i =  6 ,P2i =  0 ,P3i = 11
+
+@ 106120 ns: ,P0o =  c ,P1o =  0 ,P2o =  c ,P3o =  0
+           : ,P0i =  0 ,P1i =  6 ,P2i =  0 ,P3i = 11
+
+@ 106450 ns: ,P0o = f9 ,P1o =  0 ,P2o = f9 ,P3o =  0
+           : ,P0i =  0 ,P1i =  6 ,P2i =  0 ,P3i = 11
+
+@ 106780 ns: ,P0o = ee ,P1o =  0 ,P2o = ee ,P3o =  0
+           : ,P0i =  0 ,P1i =  6 ,P2i =  0 ,P3i = 11
+
+@ 107110 ns: ,P0o = 67 ,P1o =  0 ,P2o = 67 ,P3o =  0
+           : ,P0i =  0 ,P1i =  6 ,P2i =  0 ,P3i = 11
+
+@ 107440 ns: ,P0o = 55 ,P1o =  0 ,P2o = 55 ,P3o =  0
+           : ,P0i =  0 ,P1i =  6 ,P2i =  0 ,P3i = 11
+
+@ 107770 ns: ,P0o = f3 ,P1o =  0 ,P2o = f3 ,P3o =  0
+           : ,P0i =  0 ,P1i =  6 ,P2i =  0 ,P3i = 11
+
+@ 108100 ns: ,P0o = f9 ,P1o =  0 ,P2o = f9 ,P3o =  0
+           : ,P0i =  0 ,P1i =  6 ,P2i =  0 ,P3i = 11
+
+@ 108430 ns: ,P0o = c9 ,P1o =  0 ,P2o = c9 ,P3o =  0
+           : ,P0i =  0 ,P1i =  6 ,P2i =  0 ,P3i = 11
+
+@ 108760 ns: ,P0o = 81 ,P1o =  0 ,P2o = 81 ,P3o =  0
+           : ,P0i =  0 ,P1i =  e ,P2i =  0 ,P3i = 75
+
+@ 109090 ns: ,P0o = 10 ,P1o =  0 ,P2o = 10 ,P3o =  0
+           : ,P0i =  0 ,P1i =  e ,P2i =  0 ,P3i = 75
+
+@ 109420 ns: ,P0o = ae ,P1o =  0 ,P2o = ae ,P3o =  0
+           : ,P0i =  0 ,P1i =  e ,P2i =  0 ,P3i = 75
+
+@ 109750 ns: ,P0o = 27 ,P1o =  0 ,P2o = 27 ,P3o =  0
+           : ,P0i =  0 ,P1i =  e ,P2i =  0 ,P3i = 75
+
+@ 110080 ns: ,P0o = 7c ,P1o =  0 ,P2o = 7c ,P3o =  0
+           : ,P0i =  0 ,P1i =  e ,P2i =  0 ,P3i = 75
+
+@ 110410 ns: ,P0o = 7e ,P1o =  0 ,P2o = 7e ,P3o =  0
+           : ,P0i =  0 ,P1i =  e ,P2i =  0 ,P3i = 75
+
+@ 110740 ns: ,P0o =  2 ,P1o =  0 ,P2o =  2 ,P3o =  0
+           : ,P0i =  0 ,P1i =  e ,P2i =  0 ,P3i = 75
+
+@ 111070 ns: ,P0o = e8 ,P1o =  0 ,P2o = e8 ,P3o =  0
+           : ,P0i =  0 ,P1i =  e ,P2i =  0 ,P3i = 75
+
+@ 111400 ns: ,P0o = 94 ,P1o =  0 ,P2o = 94 ,P3o =  0
+           : ,P0i =  0 ,P1i = a6 ,P2i =  0 ,P3i = c9
+
+@ 111730 ns: ,P0o = e5 ,P1o =  0 ,P2o = e5 ,P3o =  0
+           : ,P0i =  0 ,P1i = a6 ,P2i =  0 ,P3i = c9
+
+@ 112060 ns: ,P0o = b9 ,P1o =  0 ,P2o = b9 ,P3o =  0
+           : ,P0i =  0 ,P1i = a6 ,P2i =  0 ,P3i = c9
+
+
+Info: (I804) /IEEE_Std_1666/deprecated: You can turn off warnings about
+             IEEE 1666 deprecated features by placing this method call
+             as the first statement in your sc_main() function:
+
+  sc_core::sc_report_handler::set_actions( "/IEEE_Std_1666/deprecated",
+                                           sc_core::SC_DO_NOTHING );
+
