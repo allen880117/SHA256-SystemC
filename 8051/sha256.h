@@ -15,12 +15,14 @@
 #define SIG1(x) (ROTRIGHT(x, 17) ^ ROTRIGHT(x, 19) ^ ((x) >> 10))
 
 #define CTRL_OUT_IDLE (0x00)
+#define CTRL_OUT_CLEAR (0xCC)
 #define CTRL_OUT_BUSY (0x01)
 #define CTRL_OUT_DONE (0x02)
 #define CTRL_OUT_REQ_POSTFIX (0x03)
 #define CTRL_OUT_RESULT_POSTFIX (0x06)
 
 #define CTRL_IN_RESET (0x00)
+#define CTRL_IN_CLEAR (0xCC)
 #define CTRL_IN_START (0xC0)
 #define CTRL_IN_DATA_PREFIX (0x40)
 #define CTRL_IN_RESULT_PREFIX (0x80)
@@ -34,12 +36,13 @@ enum class FSM {
     HASH_UPDATE_ITERATION,
     HASH_UPDATE_DONE,
 
-    REQ_START,
+    REQ_START_P1,
+    REQ_START_P2,
     REQ_READING,
     REQ_DONE,
 
     TAIL_JOB_START,
-    TAIL_JOB_REAMIN_SIZE_CHECK,
+    TAIL_JOB_REMAIN_LEN_CHECK,
     TAIL_JOB_NORMAL,
     TAIL_JOB_ONEMORE_P1,
     TAIL_JOB_ONEMORE_P2,
@@ -52,30 +55,30 @@ std::string print_state(FSM state);
 SC_MODULE(sha256) {
     sc_in_clk clk;
 
-    sc_in<sc_uint<8>>  ctrl_in;
-    sc_in<sc_uint<8>>  data_in;
-    sc_out<sc_uint<8>> ctrl_out;
-    sc_out<sc_uint<8>> data_out;
+    sc_in<sc_uint<8>>  ctrlIn;
+    sc_in<sc_uint<8>>  dataIn;
+    sc_out<sc_uint<8>> ctrlOut;
+    sc_out<sc_uint<8>> dataOut;
 
-    sc_uint<64> ctx_len;  // Byte length of context
+    sc_uint<64> ctxLen;  // Byte length of context
 
     sc_uint<32> hash[8];   // Hash Value
     sc_uint<8>  data[64];  // Read-in 512 bit data
     sc_uint<64> offset;    // Current Read Ptr
 
     bool        tailing;  // Work on Tail job
-    bool        tailing_more_update;
-    sc_uint<64> tail_len;  // Tailing Length
+    bool        tailingMoreUpdate;
+    sc_uint<64> tailLen;  // Tailing Length
 
     sc_uint<8>  count;
-    sc_uint<8>  read_size;
+    sc_uint<8>  readSize;
     sc_uint<32> a, b, c, d, e, f, g, h;
     sc_uint<32> w[64];
     sc_uint<32> wsig0[64];
     sc_uint<32> wsig1[64];
 
-    FSM curr_state;
-    FSM next_state;
+    FSM currState;
+    FSM nextState;
 
     void exec();
 

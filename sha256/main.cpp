@@ -18,23 +18,23 @@
 #define clockcycle 10
 
 #define PRINT_STATE                                              \
-    PRINTLN("-> curr: %s", print_state(dev.curr_state).c_str()); \
-    PRINTLN("-> next: %s", print_state(dev.next_state).c_str());
+    PRINTLN("-> curr: %s", print_state(dev.currState).c_str()); \
+    PRINTLN("-> next: %s", print_state(dev.nextState).c_str());
 
 int sc_main(int argc, char *argv[]) {
     /* Signals Setup */
     sc_clock              clk("CLOCK", clockcycle, SC_NS, 0.5);
-    sc_signal<sc_uint<8>> ctrl_in;
-    sc_signal<sc_uint<8>> data_in;
-    sc_signal<sc_uint<8>> ctrl_out;
-    sc_signal<sc_uint<8>> data_out;
+    sc_signal<sc_uint<8>> ctrlIn;
+    sc_signal<sc_uint<8>> dataIn;
+    sc_signal<sc_uint<8>> ctrlOut;
+    sc_signal<sc_uint<8>> dataOut;
 
     sha256 dev("SHA256");
     dev.clk(clk);
-    dev.data_in(data_in);
-    dev.data_out(data_out);
-    dev.ctrl_in(ctrl_in);
-    dev.ctrl_out(ctrl_out);
+    dev.dataIn(dataIn);
+    dev.dataOut(dataOut);
+    dev.ctrlIn(ctrlIn);
+    dev.ctrlOut(ctrlOut);
 
     /* Start Test */
     char context[] =
@@ -50,46 +50,48 @@ int sc_main(int argc, char *argv[]) {
         "abcdefgh01234567abcdefgh01234567abcdefgh01234567abcdefgh01234567abcdef"
         "gh01234567abcdefgh01234567abcdefgh01234567abcdefgh01234567";
 
-    size_t ctx_len = strlen(context);
+    size_t ctxLen = strlen(context);
     size_t counter = 0;
     bool   pp      = true;
-    while (dev.ctrl_out.read() != CTRL_OUT_DONE && counter < 5000) {
+    while (dev.ctrlOut.read() != CTRL_OUT_DONE && counter < 5000) {
         PRINTLN("%s", "===========================");
         PRINTLN("Port status before %4lu run", counter);
         PRINTLN("%s", "===========================");
         PRINTLN("-> CTRL_IN :  %02x, DATA_IN :  %02x",
-                dev.ctrl_in.read().to_uint(), dev.data_in.read().to_uint());
+                dev.ctrlIn.read().to_uint(), dev.dataIn.read().to_uint());
         PRINTLN("-> CTRL_OUT:  %02x, DATA_OUT:  %02x",
-                dev.ctrl_out.read().to_uint(), dev.data_out.read().to_uint());
+                dev.ctrlOut.read().to_uint(), dev.dataOut.read().to_uint());
 
         /* Simulate the Sudden Reset */
-        if (counter == 300) ctrl_in.write(CTRL_IN_RESET);
+        if (counter == 300) ctrlIn.write(CTRL_IN_RESET);
 
         /* Run */
         sc_start(clockcycle, SC_NS);
 
         /* I/O Condition */
-        if (dev.ctrl_out.read() == CTRL_OUT_IDLE) {
+        if (dev.ctrlOut.read() == CTRL_OUT_IDLE) {
             // You should change Data first
             // Then raise Ctrl signal
             // Since Ctrl signal is also ack signal for
             // that Data signal is ready
             if (pp)
-                data_in.write(ctx_len);
+                dataIn.write(ctxLen);
             else
-                ctrl_in.write(CTRL_IN_START);
+                ctrlIn.write(CTRL_IN_START);
             pp = !pp;
-        } else if (dev.ctrl_out.read().range(1, 0) == CTRL_OUT_REQ_POSTFIX) {
+        } else if (dev.ctrlOut.read().range(1, 0) == CTRL_OUT_REQ_POSTFIX) {
             // You should change Data first
             // Then raise Ctrl signal
             // Since Ctrl signal is also ack signal for
             // that Data signal is ready
             if (pp)
-                data_in.write((unsigned char)context[data_out.read()]);
+                dataIn.write((unsigned char)context[dataOut.read()]);
             else
-                ctrl_in.write(CTRL_IN_DATA_PREFIX |
-                              (dev.ctrl_out.read().range(7, 2)));
+                ctrlIn.write(CTRL_IN_DATA_PREFIX |
+                              (dev.ctrlOut.read().range(7, 2)));
             pp = !pp;
+        } else if (dev.ctrlOut.read() == CTRL_OUT_CLEAR){
+            ctrlIn.write(CTRL_IN_CLEAR);
         }
 
         /* After run */
@@ -109,32 +111,32 @@ int sc_main(int argc, char *argv[]) {
     unsigned int result[32];
     counter           = 0;
     size_t done_count = 0;
-    while (dev.ctrl_out.read().range(1, 0) == CTRL_OUT_DONE) {
+    while (dev.ctrlOut.read().range(1, 0) == CTRL_OUT_DONE) {
         PRINTLN("%s", "===========================");
         PRINTLN("Port status before %4lu run", done_count);
         PRINTLN("%s", "===========================");
         PRINTLN("-> CTRL_IN :  %02x, DATA_IN :  %02x",
-                dev.ctrl_in.read().to_uint(), dev.data_in.read().to_uint());
+                dev.ctrlIn.read().to_uint(), dev.dataIn.read().to_uint());
         PRINTLN("-> CTRL_OUT:  %02x, DATA_OUT:  %02x",
-                dev.ctrl_out.read().to_uint(), dev.data_out.read().to_uint());
+                dev.ctrlOut.read().to_uint(), dev.dataOut.read().to_uint());
 
         /* Run */
         sc_start(clockcycle, SC_NS);
 
-        if (dev.ctrl_out.read() == CTRL_OUT_DONE) {
+        if (dev.ctrlOut.read() == CTRL_OUT_DONE) {
             /* Start To Read Out Data */
             counter = 0;
-            ctrl_in.write(CTRL_IN_RESULT_PREFIX | counter);
-        } else if (dev.ctrl_out.read().range(2, 0) == CTRL_OUT_RESULT_POSTFIX) {
+            ctrlIn.write(CTRL_IN_RESULT_PREFIX | counter);
+        } else if (dev.ctrlOut.read().range(2, 0) == CTRL_OUT_RESULT_POSTFIX) {
             /* Read Out Every Data */
-            size_t idx  = dev.ctrl_out.read().range(7, 3);
-            result[idx] = dev.data_out.read();
+            size_t idx  = dev.ctrlOut.read().range(7, 3);
+            result[idx] = dev.dataOut.read();
 
             counter++;
             if (counter == 32)
                 break;
             else
-                ctrl_in.write(CTRL_IN_RESULT_PREFIX | counter);
+                ctrlIn.write(CTRL_IN_RESULT_PREFIX | counter);
         }
 
         /* After run */

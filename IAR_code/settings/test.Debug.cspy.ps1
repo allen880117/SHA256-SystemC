@@ -23,9 +23,9 @@
 
 if ($debugfile -eq "")
 {
-& "D:\Program Files (x86)\IAR Systems\Embedded Workbench 8.3\common\bin\cspybat" -f "D:\Google_Drive_0\Repo\SystemC-Ex2\SystemC_EX2_8051\IAR_code\settings\test.Debug.general.xcl" --backend -f "D:\Google_Drive_0\Repo\SystemC-Ex2\SystemC_EX2_8051\IAR_code\settings\test.Debug.driver.xcl" 
+& "D:\Program Files (x86)\IAR Systems\Embedded Workbench 8.3\common\bin\cspybat" -f "D:\Google_Drive_0\Repo\sha256-SystemC\IAR_code\settings\test.Debug.general.xcl" --backend -f "D:\Google_Drive_0\Repo\sha256-SystemC\IAR_code\settings\test.Debug.driver.xcl" 
 }
 else
 {
-& "D:\Program Files (x86)\IAR Systems\Embedded Workbench 8.3\common\bin\cspybat" -f "D:\Google_Drive_0\Repo\SystemC-Ex2\SystemC_EX2_8051\IAR_code\settings\test.Debug.general.xcl" --debug_file=$debugfile --backend -f "D:\Google_Drive_0\Repo\SystemC-Ex2\SystemC_EX2_8051\IAR_code\settings\test.Debug.driver.xcl" 
+& "D:\Program Files (x86)\IAR Systems\Embedded Workbench 8.3\common\bin\cspybat" -f "D:\Google_Drive_0\Repo\sha256-SystemC\IAR_code\settings\test.Debug.general.xcl" --debug_file=$debugfile --backend -f "D:\Google_Drive_0\Repo\sha256-SystemC\IAR_code\settings\test.Debug.driver.xcl" 
 }

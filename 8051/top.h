@@ -50,10 +50,10 @@ SC_MODULE(top) {
         
         dev_sha256 = new sha256("SHA256");
         dev_sha256->clk(slow_clk);
-        dev_sha256->ctrl_in(port0o);
-        dev_sha256->ctrl_out(port1i);
-        dev_sha256->data_in(port2o);
-        dev_sha256->data_out(port3i);
+        dev_sha256->ctrlIn(port0o);
+        dev_sha256->ctrlOut(port1i);
+        dev_sha256->dataIn(port2o);
+        dev_sha256->dataOut(port3i);
 
         core = new core_8051("core");
         core->clk(clk);

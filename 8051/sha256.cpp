@@ -11,16 +11,18 @@ std::string print_state(FSM state) {
         return std::string("HASH_UPDATE_ITERATION");
     else if (state == FSM::HASH_UPDATE_DONE)
         return std::string("HASH_UPDATE_DONE");
-    else if (state == FSM::REQ_START)
-        return std::string("REQ_START");
+    else if (state == FSM::REQ_START_P1)
+        return std::string("REQ_START_P1");
+    else if (state == FSM::REQ_START_P2)
+        return std::string("REQ_START_P2");
     else if (state == FSM::REQ_READING)
         return std::string("REQ_READING");
     else if (state == FSM::REQ_DONE)
         return std::string("REQ_DONE");
     else if (state == FSM::TAIL_JOB_START)
         return std::string("TAIL_JOB_START");
-    else if (state == FSM::TAIL_JOB_REAMIN_SIZE_CHECK)
-        return std::string("TAIL_JOB_REAMIN_SIZE_CHECK");
+    else if (state == FSM::TAIL_JOB_REMAIN_LEN_CHECK)
+        return std::string("TAIL_JOB_REMAIN_LEN_CHECK");
     else if (state == FSM::TAIL_JOB_NORMAL)
         return std::string("TAIL_JOB_NORMAL");
     else if (state == FSM::TAIL_JOB_ONEMORE_P1)
@@ -50,104 +52,112 @@ static const sc_uint<32> k[64] = {
 
 void sha256::exec() {
     /* State Initialization */
-    curr_state = FSM::IDLE;
-    next_state = FSM::IDLE;
+    currState = FSM::IDLE;
+    nextState = FSM::IDLE;
 
     /* Thread */
     while (true) {
         /* State Work & Next State Logic */
-        if (this->curr_state == FSM::IDLE) {
+        if (this->currState == FSM::IDLE) {
             /* Common Jobs */
             /* Reset Some Variables */
-            tailing             = false;
-            tailing_more_update = false;
-            count               = 0;
-            read_size           = 64;
-            offset              = 0;  // Current Read Length
+            tailing           = false;
+            tailingMoreUpdate = false;
+            count             = 0;
+            readSize          = 64;
+            offset            = 0;  // Current Read Length
             hash[0] = 0x6a09e667, hash[1] = 0xbb67ae85;
             hash[2] = 0x3c6ef372, hash[3] = 0xa54ff53a;
             hash[4] = 0x510e527f, hash[5] = 0x9b05688c;
             hash[6] = 0x1f83d9ab, hash[7] = 0x5be0cd19;
 
-            /* Next curr_state logic selection */
-            if (ctrl_in.read() == CTRL_IN_START) {
+            /* Next currState logic selection */
+            if (ctrlIn.read() == CTRL_IN_START) {
                 /* Start Encoding
                 /* Get Message Length */
-                ctx_len = data_in.read();
+                ctxLen = dataIn.read();
                 /* Raise Busy */
-                ctrl_out.write(CTRL_OUT_BUSY);
+                ctrlOut.write(CTRL_OUT_BUSY);
                 /* Assign Next State */
-                next_state = FSM::REMAIN_LEN_CHECK;
+                nextState = FSM::REMAIN_LEN_CHECK;
             } else {
                 /* Raise IDLE */
-                ctrl_out.write(CTRL_OUT_IDLE);
+                ctrlOut.write(CTRL_OUT_IDLE);
                 /* Assign Next State */
-                next_state = FSM::IDLE;
+                nextState = FSM::IDLE;
             }
 
-        } else if (this->curr_state == FSM::REMAIN_LEN_CHECK) {
-            if (offset + 64 > ctx_len) {
+        } else if (this->currState == FSM::REMAIN_LEN_CHECK) {
+            if (offset + 64 > ctxLen) {
                 /* Do Tail Jobs */
-                next_state = FSM::TAIL_JOB_START;
+                nextState = FSM::TAIL_JOB_START;
             } else {
                 /* Go to Request Phase */
-                next_state = FSM::REQ_START;
+                nextState = FSM::REQ_START_P1;
             }
-
-        } else if (this->curr_state == FSM::REQ_START) {
-            if (read_size != 0) {
-                /* Common Jobs*/
-                count = 0;
-                /* Raise for first byte */
-                ctrl_out.write((count << 2) | CTRL_OUT_REQ_POSTFIX);
-                data_out.write(offset + count);
-                /* Go to req A reading */
-                next_state = FSM::REQ_READING;
+        } else if (this->currState == FSM::REQ_START_P1) {
+            if (readSize != 0) {
+                /* Ask to Clear the Control Signal from 8051 */
+                ctrlOut.write(CTRL_OUT_CLEAR);
+                /* Check Response */
+                if (ctrlIn.read() == CTRL_IN_CLEAR) {
+                    nextState = FSM::REQ_START_P2;
+                } else {
+                    nextState = FSM::REQ_START_P1;
+                }
             } else {
                 /* No need to read */
-                next_state = FSM::REQ_DONE;
+                nextState = FSM::REQ_DONE;
             }
+        } else if (this->currState == FSM::REQ_START_P2) {
+            /* Common Jobs*/
+            count = 0;
+            /* Raise for first byte */
+            ctrlOut.write((count << 2) | CTRL_OUT_REQ_POSTFIX);
+            dataOut.write(offset + count);
+            /* Go to req A reading */
+            nextState = FSM::REQ_READING;
 
-        } else if (this->curr_state == FSM::REQ_READING) {
+        } else if (this->currState == FSM::REQ_READING) {
             /* Check Valid of Ctrl Message */
-            if (ctrl_in.read() == (CTRL_IN_DATA_PREFIX | count)) {
+            if (ctrlIn.read() == (CTRL_IN_DATA_PREFIX | count)) {
                 /* Write Data in */
-                data[count] = data_in.read();
+                data[count] = dataIn.read();
                 /* End condition check */
-                if (count == read_size - 1) {
-                    ctrl_out.write(CTRL_OUT_BUSY);  // Local Address
-                    data_out.write(0x00);           // Global Address
-                    next_state = FSM::REQ_DONE;
+                if (count == readSize - 1) {
+                    ctrlOut.write(CTRL_OUT_BUSY);  // Local Address
+                    dataOut.write(0x00);           // Global Address
+                    nextState = FSM::REQ_DONE;
                 } else {
                     /* count increment */
                     count++;
                     /* Send out Signal */
-                    ctrl_out.write((count << 2) |
-                                   CTRL_OUT_REQ_POSTFIX);  // Local Address
-                    data_out.write(offset + count);        // Global Address
-                    next_state = FSM::REQ_READING;
+                    ctrlOut.write((count << 2) |
+                                  CTRL_OUT_REQ_POSTFIX);  // Local Address
+                    dataOut.write(offset + count);        // Global Address
+                    nextState = FSM::REQ_READING;
                 }
             } else {
                 /* Not yet */
-                next_state = FSM::REQ_READING;
+                nextState = FSM::REQ_READING;
             }
 
-        } else if (this->curr_state == FSM::REQ_DONE) {
+        } else if (this->currState == FSM::REQ_DONE) {
             /* Reset to Busy State */
-            ctrl_out.write(CTRL_OUT_BUSY);
+            ctrlOut.write(CTRL_OUT_BUSY);
             /* Offset Increment */
             offset += 64;
             /* Check Whether Tailing Job Read */
             if (tailing) {
-                next_state = FSM::TAIL_JOB_REAMIN_SIZE_CHECK;
+                nextState = FSM::TAIL_JOB_REMAIN_LEN_CHECK;
             } else {
-                next_state = FSM::HASH_UPDATE_START;
+                nextState = FSM::HASH_UPDATE_START;
             }
 
-        } else if (this->curr_state == FSM::HASH_UPDATE_START) {
+        } else if (this->currState == FSM::HASH_UPDATE_START) {
             /* Common jobs for initialization */
             /* Reset to Busy State */
-            ctrl_out.write(CTRL_OUT_BUSY);
+            ctrlOut.write(CTRL_OUT_BUSY);
             /* Assign temp values */
             a = hash[0], b = hash[1], c = hash[2], d = hash[3];
             e = hash[4], f = hash[5], g = hash[6], h = hash[7];
@@ -161,10 +171,10 @@ void sha256::exec() {
             }
             /* Reset Count */
             count = 0;
-            /* Next curr_state */
-            next_state = FSM::HASH_UPDATE_ITERATION;
+            /* Next currState */
+            nextState = FSM::HASH_UPDATE_ITERATION;
 
-        } else if (this->curr_state == FSM::HASH_UPDATE_ITERATION) {
+        } else if (this->currState == FSM::HASH_UPDATE_ITERATION) {
             /* Iteration Job */
             {
                 /* Temporary Wi */
@@ -195,62 +205,62 @@ void sha256::exec() {
             }
             /* Next State Logic */
             if (count == 63) {
-                next_state = FSM::HASH_UPDATE_DONE;
+                nextState = FSM::HASH_UPDATE_DONE;
             } else {
-                next_state = FSM::HASH_UPDATE_ITERATION;
+                nextState = FSM::HASH_UPDATE_ITERATION;
             }
             /* Count Increment */
             count++;
 
-        } else if (this->curr_state == FSM::HASH_UPDATE_DONE) {
+        } else if (this->currState == FSM::HASH_UPDATE_DONE) {
             /* Accumulate */
             hash[0] += a, hash[1] += b, hash[2] += c, hash[3] += d;
             hash[4] += e, hash[5] += f, hash[6] += g, hash[7] += h;
 
             /* State Transition */
             if (tailing) {
-                if (tailing_more_update)
-                    next_state = FSM::TAIL_JOB_ONEMORE_P2;
+                if (tailingMoreUpdate)
+                    nextState = FSM::TAIL_JOB_ONEMORE_P2;
                 else
-                    next_state = FSM::TAIL_JOB_DONE;
+                    nextState = FSM::TAIL_JOB_DONE;
             } else {
-                next_state = FSM::REMAIN_LEN_CHECK;
+                nextState = FSM::REMAIN_LEN_CHECK;
             }
 
-        } else if (this->curr_state == FSM::TAIL_JOB_START) {
+        } else if (this->currState == FSM::TAIL_JOB_START) {
             /* Reset to Busy State */
-            ctrl_out.write(CTRL_OUT_BUSY);
+            ctrlOut.write(CTRL_OUT_BUSY);
             /* Set tailing to true */
             tailing = true;
             /* Set Essential Variables */
-            tail_len  = ctx_len - offset;
-            read_size = tail_len;  // Change Readsize
+            tailLen  = ctxLen - offset;
+            readSize = tailLen;  // Change Readsize
             /* Read last data */
-            next_state = FSM::REQ_START;
+            nextState = FSM::REQ_START_P1;
 
-        } else if (this->curr_state == FSM::TAIL_JOB_REAMIN_SIZE_CHECK) {
+        } else if (this->currState == FSM::TAIL_JOB_REMAIN_LEN_CHECK) {
             /* Check need one more update or not */
-            if (tail_len <= 64 - 1 - 8) {
-                tailing_more_update = false;
+            if (tailLen <= 64 - 1 - 8) {
+                tailingMoreUpdate = false;
                 /* Next State */
-                next_state = FSM::TAIL_JOB_NORMAL;
+                nextState = FSM::TAIL_JOB_NORMAL;
             } else {
-                tailing_more_update = true;
+                tailingMoreUpdate = true;
                 /* Next State */
-                next_state = FSM::TAIL_JOB_ONEMORE_P1;
+                nextState = FSM::TAIL_JOB_ONEMORE_P1;
             }
 
-        } else if (this->curr_state == FSM::TAIL_JOB_NORMAL) {
+        } else if (this->currState == FSM::TAIL_JOB_NORMAL) {
             /* No more Update */
-            tailing_more_update = false;
+            tailingMoreUpdate = false;
             /* Append 1 at tail of message */
-            data[tail_len] = 0x80;
+            data[tailLen] = 0x80;
             /* Fill Other chunks with zero */
-            for (size_t i = tail_len + 1; i < 64 - 8; i++) {
+            for (size_t i = tailLen + 1; i < 64 - 8; i++) {
                 data[i] = 0x00;
             }
             /* Fill the length of context at the end of chunk */
-            sc_uint<64> bit_length = ctx_len * 8;
+            sc_uint<64> bit_length = ctxLen * 8;
             data[56]               = bit_length.range(63, 56);
             data[57]               = bit_length.range(55, 48);
             data[58]               = bit_length.range(47, 40);
@@ -260,25 +270,25 @@ void sha256::exec() {
             data[62]               = bit_length.range(15, 8);
             data[63]               = bit_length.range(7, 0);
             /* Next State Logic */
-            next_state = FSM::HASH_UPDATE_START;
+            nextState = FSM::HASH_UPDATE_START;
 
-        } else if (this->curr_state == FSM::TAIL_JOB_ONEMORE_P1) {
+        } else if (this->currState == FSM::TAIL_JOB_ONEMORE_P1) {
             /* Need more update */
-            tailing_more_update = true;
+            tailingMoreUpdate = true;
             /* Append 1 at tail of message */
-            data[tail_len] = 0x80;
+            data[tailLen] = 0x80;
             /* Next State Logic */
-            next_state = FSM::HASH_UPDATE_START;
+            nextState = FSM::HASH_UPDATE_START;
 
-        } else if (this->curr_state == FSM::TAIL_JOB_ONEMORE_P2) {
+        } else if (this->currState == FSM::TAIL_JOB_ONEMORE_P2) {
             /* No more Update */
-            tailing_more_update = false;
+            tailingMoreUpdate = false;
             /* Fill Other chunks with zero */
             for (size_t i = 0; i < 64 - 8; i++) {
                 data[i] = 0x00;
             }
             /* Fill the length of context at the end of chunk */
-            sc_uint<64> bit_length = ctx_len * 8;
+            sc_uint<64> bit_length = ctxLen * 8;
             data[56]               = bit_length.range(63, 56);
             data[57]               = bit_length.range(55, 48);
             data[58]               = bit_length.range(47, 40);
@@ -288,36 +298,36 @@ void sha256::exec() {
             data[62]               = bit_length.range(15, 8);
             data[63]               = bit_length.range(7, 0);
             /* Next State Logic */
-            next_state = FSM::HASH_UPDATE_START;
+            nextState = FSM::HASH_UPDATE_START;
 
-        } else if (this->curr_state == FSM::TAIL_JOB_DONE) {
+        } else if (this->currState == FSM::TAIL_JOB_DONE) {
             /* Raise Done */
-            ctrl_out.write(CTRL_OUT_DONE);
+            ctrlOut.write(CTRL_OUT_DONE);
             /* Next State */
-            next_state = FSM::WAIT_FOR_READ;
+            nextState = FSM::WAIT_FOR_READ;
 
-        } else if (this->curr_state == FSM::WAIT_FOR_READ) {
-            if (ctrl_in.read().range(7, 5) == (CTRL_IN_RESULT_PREFIX >> 5)) {
-                sc_uint<8> idx = ctrl_in.read().range(4, 0);
-                ctrl_out.write((idx << 3) | CTRL_OUT_RESULT_POSTFIX);
+        } else if (this->currState == FSM::WAIT_FOR_READ) {
+            if (ctrlIn.read().range(7, 5) == (CTRL_IN_RESULT_PREFIX >> 5)) {
+                sc_uint<8> idx = ctrlIn.read().range(4, 0);
+                ctrlOut.write((idx << 3) | CTRL_OUT_RESULT_POSTFIX);
 
                 sc_uint<8> hashIdx       = idx >> 2;
                 sc_uint<8> hashRangeUp   = ((0x03 - (idx & 0x03)) << 3) + 7;
                 sc_uint<8> hashRangeDown = ((0x03 - (idx & 0x03)) << 3);
-                data_out.write(hash[hashIdx].range(hashRangeUp, hashRangeDown));
+                dataOut.write(hash[hashIdx].range(hashRangeUp, hashRangeDown));
             }
             /* Hold State */
-            next_state = FSM::WAIT_FOR_READ;
+            nextState = FSM::WAIT_FOR_READ;
 
         } else {
-            next_state = FSM::IDLE;
+            nextState = FSM::IDLE;
         }
 
         /* Assign Next State */
-        if (ctrl_in.read() == CTRL_IN_RESET) {
-            curr_state = FSM::IDLE;
+        if (ctrlIn.read() == CTRL_IN_RESET) {
+            currState = FSM::IDLE;
         } else {
-            curr_state = next_state;
+            currState = nextState;
         }
 
         /* End Wait */

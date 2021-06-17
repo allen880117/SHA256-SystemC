@@ -2326,190 +2326,218 @@
     "display": "void init_iss(void)",
     "location": {
       "column": "6",
-      "line": "23",
-      "path": "D:\\Google_Drive_0\\Repo\\SystemC-Ex2\\SystemC_EX2_8051\\IAR_code\\main.cpp"
+      "line": "3",
+      "path": "D:\\Google_Drive_0\\Repo\\sha256-SystemC\\IAR_code\\main.cpp"
     },
     "name": "init_iss",
     "origin": "project_file",
     "scope": null
   },
   {
-    "ID": "c:main.cpp@611@macro@CTRL_OUT_IDLE",
+    "ID": "c:main.cpp@205@macro@CTRL_OUT_IDLE",
     "What": "MacroDef",
     "defdec": "Def",
     "display": "CTRL_OUT_IDLE",
     "location": {
       "column": "9",
-      "line": "37",
-      "path": "D:\\Google_Drive_0\\Repo\\SystemC-Ex2\\SystemC_EX2_8051\\IAR_code\\main.cpp"
+      "line": "17",
+      "path": "D:\\Google_Drive_0\\Repo\\sha256-SystemC\\IAR_code\\main.cpp"
     },
     "name": "CTRL_OUT_IDLE",
     "origin": "project_file",
     "scope": null
   },
   {
-    "ID": "c:main.cpp@641@macro@CTRL_OUT_BUSY",
+    "ID": "c:main.cpp@235@macro@CTRL_OUT_CLEAR",
+    "What": "MacroDef",
+    "defdec": "Def",
+    "display": "CTRL_OUT_CLEAR",
+    "location": {
+      "column": "9",
+      "line": "18",
+      "path": "D:\\Google_Drive_0\\Repo\\sha256-SystemC\\IAR_code\\main.cpp"
+    },
+    "name": "CTRL_OUT_CLEAR",
+    "origin": "project_file",
+    "scope": null
+  },
+  {
+    "ID": "c:main.cpp@266@macro@CTRL_OUT_BUSY",
     "What": "MacroDef",
     "defdec": "Def",
     "display": "CTRL_OUT_BUSY",
     "location": {
       "column": "9",
-      "line": "38",
-      "path": "D:\\Google_Drive_0\\Repo\\SystemC-Ex2\\SystemC_EX2_8051\\IAR_code\\main.cpp"
+      "line": "19",
+      "path": "D:\\Google_Drive_0\\Repo\\sha256-SystemC\\IAR_code\\main.cpp"
     },
     "name": "CTRL_OUT_BUSY",
     "origin": "project_file",
     "scope": null
   },
   {
-    "ID": "c:main.cpp@671@macro@CTRL_OUT_DONE",
+    "ID": "c:main.cpp@296@macro@CTRL_OUT_DONE",
     "What": "MacroDef",
     "defdec": "Def",
     "display": "CTRL_OUT_DONE",
     "location": {
       "column": "9",
-      "line": "39",
-      "path": "D:\\Google_Drive_0\\Repo\\SystemC-Ex2\\SystemC_EX2_8051\\IAR_code\\main.cpp"
+      "line": "20",
+      "path": "D:\\Google_Drive_0\\Repo\\sha256-SystemC\\IAR_code\\main.cpp"
     },
     "name": "CTRL_OUT_DONE",
     "origin": "project_file",
     "scope": null
   },
   {
-    "ID": "c:main.cpp@701@macro@CTRL_OUT_REQ_POSTFIX",
+    "ID": "c:main.cpp@326@macro@CTRL_OUT_REQ_POSTFIX",
     "What": "MacroDef",
     "defdec": "Def",
     "display": "CTRL_OUT_REQ_POSTFIX",
     "location": {
       "column": "9",
-      "line": "40",
-      "path": "D:\\Google_Drive_0\\Repo\\SystemC-Ex2\\SystemC_EX2_8051\\IAR_code\\main.cpp"
+      "line": "21",
+      "path": "D:\\Google_Drive_0\\Repo\\sha256-SystemC\\IAR_code\\main.cpp"
     },
     "name": "CTRL_OUT_REQ_POSTFIX",
     "origin": "project_file",
     "scope": null
   },
   {
-    "ID": "c:main.cpp@738@macro@CTRL_OUT_RESULT_POSTFIX",
+    "ID": "c:main.cpp@363@macro@CTRL_OUT_RESULT_POSTFIX",
     "What": "MacroDef",
     "defdec": "Def",
     "display": "CTRL_OUT_RESULT_POSTFIX",
     "location": {
       "column": "9",
-      "line": "41",
-      "path": "D:\\Google_Drive_0\\Repo\\SystemC-Ex2\\SystemC_EX2_8051\\IAR_code\\main.cpp"
+      "line": "22",
+      "path": "D:\\Google_Drive_0\\Repo\\sha256-SystemC\\IAR_code\\main.cpp"
     },
     "name": "CTRL_OUT_RESULT_POSTFIX",
     "origin": "project_file",
     "scope": null
   },
   {
-    "ID": "c:main.cpp@780@macro@CTRL_IN_RESET",
+    "ID": "c:main.cpp@405@macro@CTRL_IN_RESET",
     "What": "MacroDef",
     "defdec": "Def",
     "display": "CTRL_IN_RESET",
     "location": {
       "column": "9",
-      "line": "43",
-      "path": "D:\\Google_Drive_0\\Repo\\SystemC-Ex2\\SystemC_EX2_8051\\IAR_code\\main.cpp"
+      "line": "24",
+      "path": "D:\\Google_Drive_0\\Repo\\sha256-SystemC\\IAR_code\\main.cpp"
     },
     "name": "CTRL_IN_RESET",
     "origin": "project_file",
     "scope": null
   },
   {
-    "ID": "c:main.cpp@810@macro@CTRL_IN_START",
+    "ID": "c:main.cpp@435@macro@CTRL_IN_CLEAR",
+    "What": "MacroDef",
+    "defdec": "Def",
+    "display": "CTRL_IN_CLEAR",
+    "location": {
+      "column": "9",
+      "line": "25",
+      "path": "D:\\Google_Drive_0\\Repo\\sha256-SystemC\\IAR_code\\main.cpp"
+    },
+    "name": "CTRL_IN_CLEAR",
+    "origin": "project_file",
+    "scope": null
+  },
+  {
+    "ID": "c:main.cpp@465@macro@CTRL_IN_START",
     "What": "MacroDef",
     "defdec": "Def",
     "display": "CTRL_IN_START",
     "location": {
       "column": "9",
-      "line": "44",
-      "path": "D:\\Google_Drive_0\\Repo\\SystemC-Ex2\\SystemC_EX2_8051\\IAR_code\\main.cpp"
+      "line": "26",
+      "path": "D:\\Google_Drive_0\\Repo\\sha256-SystemC\\IAR_code\\main.cpp"
     },
     "name": "CTRL_IN_START",
     "origin": "project_file",
     "scope": null
   },
   {
-    "ID": "c:main.cpp@840@macro@CTRL_IN_DATA_PREFIX",
+    "ID": "c:main.cpp@495@macro@CTRL_IN_DATA_PREFIX",
     "What": "MacroDef",
     "defdec": "Def",
     "display": "CTRL_IN_DATA_PREFIX",
     "location": {
       "column": "9",
-      "line": "45",
-      "path": "D:\\Google_Drive_0\\Repo\\SystemC-Ex2\\SystemC_EX2_8051\\IAR_code\\main.cpp"
+      "line": "27",
+      "path": "D:\\Google_Drive_0\\Repo\\sha256-SystemC\\IAR_code\\main.cpp"
     },
     "name": "CTRL_IN_DATA_PREFIX",
     "origin": "project_file",
     "scope": null
   },
   {
-    "ID": "c:main.cpp@876@macro@CTRL_IN_RESULT_PREFIX",
+    "ID": "c:main.cpp@531@macro@CTRL_IN_RESULT_PREFIX",
     "What": "MacroDef",
     "defdec": "Def",
     "display": "CTRL_IN_RESULT_PREFIX",
     "location": {
       "column": "9",
-      "line": "46",
-      "path": "D:\\Google_Drive_0\\Repo\\SystemC-Ex2\\SystemC_EX2_8051\\IAR_code\\main.cpp"
+      "line": "28",
+      "path": "D:\\Google_Drive_0\\Repo\\sha256-SystemC\\IAR_code\\main.cpp"
     },
     "name": "CTRL_IN_RESULT_PREFIX",
     "origin": "project_file",
     "scope": null
   },
   {
-    "ID": "c:main.cpp@916@macro@CTRL_IN",
+    "ID": "c:main.cpp@571@macro@CTRL_IN",
     "What": "MacroDef",
     "defdec": "Def",
     "display": "CTRL_IN",
     "location": {
       "column": "9",
-      "line": "48",
-      "path": "D:\\Google_Drive_0\\Repo\\SystemC-Ex2\\SystemC_EX2_8051\\IAR_code\\main.cpp"
+      "line": "30",
+      "path": "D:\\Google_Drive_0\\Repo\\sha256-SystemC\\IAR_code\\main.cpp"
     },
     "name": "CTRL_IN",
     "origin": "project_file",
     "scope": null
   },
   {
-    "ID": "c:main.cpp@937@macro@CTRL_OUT",
+    "ID": "c:main.cpp@591@macro@CTRL_OUT",
     "What": "MacroDef",
     "defdec": "Def",
     "display": "CTRL_OUT",
     "location": {
       "column": "9",
-      "line": "49",
-      "path": "D:\\Google_Drive_0\\Repo\\SystemC-Ex2\\SystemC_EX2_8051\\IAR_code\\main.cpp"
+      "line": "31",
+      "path": "D:\\Google_Drive_0\\Repo\\sha256-SystemC\\IAR_code\\main.cpp"
     },
     "name": "CTRL_OUT",
     "origin": "project_file",
     "scope": null
   },
   {
-    "ID": "c:main.cpp@958@macro@DATA_IN",
+    "ID": "c:main.cpp@612@macro@DATA_IN",
     "What": "MacroDef",
     "defdec": "Def",
     "display": "DATA_IN",
     "location": {
       "column": "9",
-      "line": "50",
-      "path": "D:\\Google_Drive_0\\Repo\\SystemC-Ex2\\SystemC_EX2_8051\\IAR_code\\main.cpp"
+      "line": "32",
+      "path": "D:\\Google_Drive_0\\Repo\\sha256-SystemC\\IAR_code\\main.cpp"
     },
     "name": "DATA_IN",
     "origin": "project_file",
     "scope": null
   },
   {
-    "ID": "c:main.cpp@979@macro@DATA_OUT",
+    "ID": "c:main.cpp@632@macro@DATA_OUT",
     "What": "MacroDef",
     "defdec": "Def",
     "display": "DATA_OUT",
     "location": {
       "column": "9",
-      "line": "51",
-      "path": "D:\\Google_Drive_0\\Repo\\SystemC-Ex2\\SystemC_EX2_8051\\IAR_code\\main.cpp"
+      "line": "33",
+      "path": "D:\\Google_Drive_0\\Repo\\sha256-SystemC\\IAR_code\\main.cpp"
     },
     "name": "DATA_OUT",
     "origin": "project_file",
@@ -2522,64 +2550,64 @@
     "display": "void main(void)",
     "location": {
       "column": "6",
-      "line": "53",
-      "path": "D:\\Google_Drive_0\\Repo\\SystemC-Ex2\\SystemC_EX2_8051\\IAR_code\\main.cpp"
+      "line": "35",
+      "path": "D:\\Google_Drive_0\\Repo\\sha256-SystemC\\IAR_code\\main.cpp"
     },
     "name": "main",
     "origin": "project_file",
     "scope": null
   },
   {
-    "ID": "c:main.cpp@1057@F@main#@context",
+    "ID": "c:main.cpp@850@F@main#@context",
     "What": "Variable",
     "defdec": "Def",
     "display": "context",
     "location": {
       "column": "10",
-      "line": "56",
-      "path": "D:\\Google_Drive_0\\Repo\\SystemC-Ex2\\SystemC_EX2_8051\\IAR_code\\main.cpp"
+      "line": "38",
+      "path": "D:\\Google_Drive_0\\Repo\\sha256-SystemC\\IAR_code\\main.cpp"
     },
     "name": "context",
     "origin": "project_file",
     "scope": null
   },
   {
-    "ID": "c:main.cpp@1200@F@main#@result",
+    "ID": "c:main.cpp@1137@F@main#@result",
     "What": "Variable",
     "defdec": "Def",
     "display": "result",
     "location": {
       "column": "10",
-      "line": "57",
-      "path": "D:\\Google_Drive_0\\Repo\\SystemC-Ex2\\SystemC_EX2_8051\\IAR_code\\main.cpp"
+      "line": "40",
+      "path": "D:\\Google_Drive_0\\Repo\\sha256-SystemC\\IAR_code\\main.cpp"
     },
     "name": "result",
     "origin": "project_file",
     "scope": null
   },
   {
-    "ID": "c:main.cpp@1224@F@main#@i",
+    "ID": "c:main.cpp@1159@F@main#@i",
     "What": "Variable",
     "defdec": "Def",
     "display": "i",
     "location": {
       "column": "18",
-      "line": "59",
-      "path": "D:\\Google_Drive_0\\Repo\\SystemC-Ex2\\SystemC_EX2_8051\\IAR_code\\main.cpp"
+      "line": "41",
+      "path": "D:\\Google_Drive_0\\Repo\\sha256-SystemC\\IAR_code\\main.cpp"
     },
     "name": "i",
     "origin": "project_file",
     "scope": null
   },
   {
-    "ID": "c:main.cpp@1998@F@main#@idx",
+    "ID": "c:main.cpp@2170@F@main#@idx",
     "What": "Variable",
     "defdec": "Def",
     "display": "idx",
     "location": {
-      "column": "24",
-      "line": "80",
-      "path": "D:\\Google_Drive_0\\Repo\\SystemC-Ex2\\SystemC_EX2_8051\\IAR_code\\main.cpp"
+      "column": "26",
+      "line": "70",
+      "path": "D:\\Google_Drive_0\\Repo\\sha256-SystemC\\IAR_code\\main.cpp"
     },
     "name": "idx",
     "origin": "project_file",

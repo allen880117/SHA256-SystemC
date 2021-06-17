@@ -2,25 +2,25 @@
 #                                                                              #
 #      IAR Universal Linker V6.6.2.104                                         #
 #                                                                              #
-#           Link time     =  11/Jun/2021  22:19:54                             #
+#           Link time     =  17/Jun/2021  12:41:25                             #
 #           Target CPU    =  x51                                               #
-#           List file     =  D:\Google_Drive_0\Repo\SystemC-Ex2\SystemC_EX2_80 #
-#                            51\IAR_code\Debug\List\test.map                   #
-#           Output file 1 =  D:\Google_Drive_0\Repo\SystemC-Ex2\SystemC_EX2_80 #
-#                            51\IAR_code\Debug\Exe\test.a51                    #
+#           List file     =  D:\Google_Drive_0\Repo\sha256-SystemC\IAR_code\De #
+#                            bug\List\test.map                                 #
+#           Output file 1 =  D:\Google_Drive_0\Repo\sha256-SystemC\IAR_code\De #
+#                            bug\Exe\test.a51                                  #
 #                            Format: intel-standard                            #
-#           Output file 2 =  D:\Google_Drive_0\Repo\SystemC-Ex2\SystemC_EX2_80 #
-#                            51\IAR_code\Debug\Exe\test.hex                    #
+#           Output file 2 =  D:\Google_Drive_0\Repo\sha256-SystemC\IAR_code\De #
+#                            bug\Exe\test.hex                                  #
 #                            Format: intel-standard, variant: -y(CODE)         #
-#           Command line  =  -f C:\Users\allen\AppData\Local\Temp\EW1F73.tmp   #
-#                            (D:\Google_Drive_0\Repo\SystemC-Ex2\SystemC_EX2_8 #
-#                            051\IAR_code\Debug\Obj\main.r51                   #
+#           Command line  =  -f C:\Users\allen\AppData\Local\Temp\EWA047.tmp   #
+#                            (D:\Google_Drive_0\Repo\sha256-SystemC\IAR_code\D #
+#                            ebug\Obj\main.r51                                 #
 #                            -o                                                #
-#                            D:\Google_Drive_0\Repo\SystemC-Ex2\SystemC_EX2_80 #
-#                            51\IAR_code\Debug\Exe\test.a51                    #
+#                            D:\Google_Drive_0\Repo\sha256-SystemC\IAR_code\De #
+#                            bug\Exe\test.a51                                  #
 #                            -Fintel-standard -l                               #
-#                            D:\Google_Drive_0\Repo\SystemC-Ex2\SystemC_EX2_80 #
-#                            51\IAR_code\Debug\List\test.map                   #
+#                            D:\Google_Drive_0\Repo\sha256-SystemC\IAR_code\De #
+#                            bug\List\test.map                                 #
 #                            -xms                                              #
 #                            "-ID:\Program Files (x86)\IAR Systems\Embedded Wo #
 #                            rkbench 8.3\8051\LIB\"                            #
@@ -180,8 +180,7 @@ Absolute parts
            _NR_OF_VIRTUAL_REGISTERS
                                    00000008 
            ?IP                     000000B8 
-           ?IE                     000000A8        ?ALLOC_XSTACK8 (?ALLOC_XSTACK8)
-                                                   ?DEALLOC_XSTACK8 (?DEALLOC_XSTACK8)
+           ?IE                     000000A8        ?ADD_XSTACK_DISP0_16 (?ADD_XSTACK_DISP16)
            ?B                      000000F0 
            ?VB                     00000020 
            _BREG_START             00000000 
@@ -199,7 +198,7 @@ Absolute parts
            _IDATA0_START           00000000 
     *************************************************************************
 
-  FILE NAME : D:\Google_Drive_0\Repo\SystemC-Ex2\SystemC_EX2_8051\IAR_code\Debug\Obj\main.r51
+  FILE NAME : D:\Google_Drive_0\Repo\sha256-SystemC\IAR_code\Debug\Obj\main.r51
   PROGRAM MODULE, NAME : main
 
   SEGMENTS IN THE MODULE
@@ -264,29 +263,29 @@ SFR_AN
            PCON_bit                00000087 
     -------------------------------------------------------------------------
 <NEAR_CODE> 1 (was NEAR_CODE)
-  Relative segment, address: CODE 00000119 - 00000134 (0x1c bytes), align: 0
+  Relative segment, address: CODE 00000192 - 000001AD (0x1c bytes), align: 0
   Segment part 13.            Intra module refs:   main
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           init_iss()              00000119 
-               XSTACK = 00000094 ( 00000000 )
+           init_iss()              00000192 
+               XSTACK = 00000120 ( 00000000 )
     -------------------------------------------------------------------------
 <NEAR_CODE> 1 (was NEAR_CODE)
-  Relative segment, address: CODE 00000135 - 0000022B (0xf7 bytes), align: 0
+  Relative segment, address: CODE 000001AE - 000002BB (0x10e bytes), align: 0
   Segment part 14.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           main                    00000135        ?call_main (?cmain)
+           main                    000001AE        ?call_main (?cmain)
                calls direct
-               XSTACK = 00000000 ( 00000094 )
+               XSTACK = 00000000 ( 00000120 )
                ISTACK = 00000000 ( 00000001 )
     -------------------------------------------------------------------------
 XDATA_ID
-  Relative segment, address: CODE 00000041 - 000000B4 (0x74 bytes), align: 0
+  Relative segment, address: CODE 00000041 - 00000140 (0x100 bytes), align: 0
   Segment part 12.            Intra module refs:   Segment part 11
     -------------------------------------------------------------------------
 XDATA_I
-  Relative segment, address: XDATA 00000F00 - 00000F73 (0x74 bytes), align: 0
+  Relative segment, address: XDATA 00000F00 - 00000FFF (0x100 bytes), align: 0
   Segment part 11.            Intra module refs:   main
 
     *************************************************************************
@@ -329,7 +328,7 @@ CSTART
            __INIT_XDATA_I          00000006        Segment part 11 (main)
     -------------------------------------------------------------------------
 DIFUNCT
-  Relative segment, address: CODE 00000119, align: 0
+  Relative segment, address: CODE 00000192, align: 0
   Segment part 38. ROOT 
     -------------------------------------------------------------------------
 CSTART
@@ -405,8 +404,7 @@ XSP
   Segment part 34.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?XSP                    00000008        ?ALLOC_XSTACK8 (?ALLOC_XSTACK8)
-                                                   ?DEALLOC_XSTACK8 (?DEALLOC_XSTACK8)
+           ?XSP                    00000008        ?ADD_XSTACK_DISP0_16 (?ADD_XSTACK_DISP16)
                                                    ?RESET_XSP (CSTARTUP)
                                                    ?XSTACK_DISP0_8 (?XSTACK_DISP8)
                                                    ?XSTACK_DISP102_8 (?XSTACK_DISP8_RP)
@@ -418,11 +416,11 @@ XSP
   SEGMENTS IN THE MODULE
   ======================
 <NEAR_CODE> 1 (was NEAR_CODE)
-  Relative segment, address: CODE 0000022C - 0000022E (0x3 bytes), align: 0
+  Relative segment, address: CODE 000002BC - 000002BE (0x3 bytes), align: 0
   Segment part 6.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           exit                    0000022C        ?call_main (?cmain)
+           exit                    000002BC        ?call_main (?cmain)
                calls direct
 
     -------------------------------------------------------------------------
@@ -431,36 +429,24 @@ XSP
   SEGMENTS IN THE MODULE
   ======================
 RCODE
-  Relative segment, address: CODE 000000B5 - 000000D5 (0x21 bytes), align: 0
+  Relative segment, address: CODE 00000141 - 00000161 (0x21 bytes), align: 0
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            ?MOVE_LONG8_XDATA_XDATA
-                                   000000B5        main (main)
+                                   00000141        main (main)
 
     -------------------------------------------------------------------------
-  LIBRARY MODULE, NAME : ?ALLOC_XSTACK8
+  LIBRARY MODULE, NAME : ?ADD_XSTACK_DISP16
 
   SEGMENTS IN THE MODULE
   ======================
 RCODE
-  Relative segment, address: CODE 000000D6 - 000000EB (0x16 bytes), align: 0
-  Segment part 0.
+  Relative segment, address: CODE 00000162 - 0000017F (0x1e bytes), align: 0
+  Segment part 1.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?ALLOC_XSTACK8          000000D6        main (main)
-
-    -------------------------------------------------------------------------
-  LIBRARY MODULE, NAME : ?DEALLOC_XSTACK8
-
-  SEGMENTS IN THE MODULE
-  ======================
-RCODE
-  Relative segment, address: CODE 000000EC - 00000106 (0x1b bytes), align: 0
-  Segment part 0.
-           ENTRY                   ADDRESS         REF BY
-           =====                   =======         ======
-           ?DEALLOC_XSTACK8        000000EC        main (main)
+           ?ADD_XSTACK_DISP0_16    00000162        main (main)
 
     -------------------------------------------------------------------------
   LIBRARY MODULE, NAME : ?XSTACK_DISP8
@@ -468,11 +454,11 @@ RCODE
   SEGMENTS IN THE MODULE
   ======================
 RCODE
-  Relative segment, address: CODE 00000107 - 00000110 (0xa bytes), align: 0
+  Relative segment, address: CODE 00000180 - 00000189 (0xa bytes), align: 0
   Segment part 1.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?XSTACK_DISP0_8         00000107        main (main)
+           ?XSTACK_DISP0_8         00000180        main (main)
 
     -------------------------------------------------------------------------
   LIBRARY MODULE, NAME : ?XSTACK_DISP8_RP
@@ -480,11 +466,11 @@ RCODE
   SEGMENTS IN THE MODULE
   ======================
 RCODE
-  Relative segment, address: CODE 00000111 - 00000118 (0x8 bytes), align: 0
+  Relative segment, address: CODE 0000018A - 00000191 (0x8 bytes), align: 0
   Segment part 2.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           ?XSTACK_DISP102_8       00000111        main (main)
+           ?XSTACK_DISP102_8       0000018A        main (main)
 
     -------------------------------------------------------------------------
   LIBRARY MODULE, NAME : ?__exit
@@ -492,11 +478,11 @@ RCODE
   SEGMENTS IN THE MODULE
   ======================
 <NEAR_CODE> 1 (was NEAR_CODE)
-  Relative segment, address: CODE 0000022F - 00000230 (0x2 bytes), align: 0
+  Relative segment, address: CODE 000002BF - 000002C0 (0x2 bytes), align: 0
   Segment part 6.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           __exit                  0000022F        Segment part 10 (?cexit)
+           __exit                  000002BF        Segment part 10 (?cexit)
 
 
 
@@ -518,10 +504,10 @@ IDATA_ID             CODE               00000041                     dse    0
 IXDATA_ID            CODE               00000041                     dse    0
 PDATA_ID             CODE               00000041                     dse    0
 BIT_ID               CODE               00000041                     dse    0
-XDATA_ID             CODE          00000041 - 000000B4          74   rel    0
-RCODE                CODE          000000B5 - 00000118          64   rel    0
-DIFUNCT              CODE               00000119                     rel    0
-<NEAR_CODE> 1        CODE          00000119 - 00000230         118   rel    0
+XDATA_ID             CODE          00000041 - 00000140         100   rel    0
+RCODE                CODE          00000141 - 00000191          51   rel    0
+DIFUNCT              CODE               00000192                     rel    0
+<NEAR_CODE> 1        CODE          00000192 - 000002C0         12F   rel    0
 REGISTERS            DATA          00000000 - 00000007           8   rel    0
 PSP                  DATA               00000008                     dse    0
 XSP                  DATA          00000008 - 00000009           2   rel    0
@@ -532,7 +518,7 @@ SFR_AN               DATA          00000080 - 00000080           1   rel    0
                      DATA          000000A0 - 000000A0           1 
                      DATA          000000B0 - 000000B0           1 
 XSTACK               XDATA         00000001 - 00000EFF         EFF   rel    0
-XDATA_I              XDATA         00000F00 - 00000F73          74   rel    0
+XDATA_I              XDATA         00000F00 - 00000FFF         100   rel    0
 ISTACK               IDATA         000000C0 - 000000FF          40   rel    0
 
                 ****************************************
@@ -541,9 +527,9 @@ ISTACK               IDATA         000000C0 - 000000FF          40   rel    0
                 *                                      *
                 ****************************************
 
-   561 bytes of CODE  memory
+   705 bytes of CODE  memory
     10 bytes of DATA  memory (+ 5 absolute )
- 3 955 bytes of XDATA memory
+ 4 095 bytes of XDATA memory
     64 bytes of IDATA memory
      8 bits  of BIT   memory
 
